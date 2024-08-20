@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS db;
+
+use db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    username   VARCHAR(50) NOT NULL,
+    password   VARCHAR(50) NOT NULL,
+    birthdate  DATE NOT NULL
+) ENGINE=InnoDB;

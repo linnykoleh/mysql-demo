@@ -1,18 +1,16 @@
-package siege.siegedemo;
+package demo.mysqldemo;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.sql.Date;
 
-@Document
 @Data
 public class User {
 
     public static final User DEFAULT_USER = new User();
 
-    @Id
     private String id;
     private String name;
-    private String lastName;
+    private String password;
+    private Date birthDate;
 
 }

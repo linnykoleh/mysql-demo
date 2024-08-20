@@ -1,21 +1,17 @@
-version: '3'
+version: '3.9'
 services:
-  nginx_origin:
-    image: nginx:alpine
-    container_name: nginx_origin
-    volumes:
-      - ./static:/usr/share/nginx/html:ro
-      - ./nginx_origin.conf:/etc/nginx/nginx.conf:ro
+  mysql:
+    image: mysql:8.0.27
+    container_name: mysql
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: linnyk
+      MYSQL_PASSWORD: linnyk
     ports:
-      - "8081:80"
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  nginx_cache:
-    image: openresty/openresty:alpine
-    container_name: nginx_cache
-    depends_on:
-      - nginx_origin
-    volumes:
-      - ./nginx_cache.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
-      - ./cache:/var/cache/nginx
-    ports:
-      - "8080:80"
