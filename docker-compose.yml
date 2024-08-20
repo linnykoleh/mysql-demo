@@ -1,0 +1,21 @@
+version: '3'
+services:
+  nginx_origin:
+    image: nginx:alpine
+    container_name: nginx_origin
+    volumes:
+      - ./static:/usr/share/nginx/html:ro
+      - ./nginx_origin.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8081:80"
+
+  nginx_cache:
+    image: openresty/openresty:alpine
+    container_name: nginx_cache
+    depends_on:
+      - nginx_origin
+    volumes:
+      - ./nginx_cache.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./cache:/var/cache/nginx
+    ports:
+      - "8080:80"
